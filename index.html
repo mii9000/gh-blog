@@ -1,0 +1,67 @@
+<html>
+<head>
+	<title>Home</title>	
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="bower_components/normalize.css/normalize.css">
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700,800|Exo+2:400,100,200,300,500,600,700,800' rel='stylesheet' type='text/css'>
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="MobileOptimized" content="320" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body class="home-template">
+
+	<div class="wrapper_pixel">
+		<div role='banner' class="header_pixel">
+			<div class="menu_list">
+				<a class="menu_item" href="http://bd.linkedin.com/in/mdibrahimislam/">LinkedIn</a>
+				<a class="menu_item" href="http://stackoverflow.com/users/1565402/md-lbrahim">StackOverflow</a>
+				<a class="menu_item" href="http://forums.asp.net/members/IbrahimIslam.aspx">ASP.NET</a>
+				<a class="menu_item" href="https://github.com/Ibrahim-Islam">GitHub</a>
+				<a class="menu_item" href="mailto:ibrahim.islam@live.com">Email</a>
+			</div>
+			<a class="" href="index.html"><img class="cover_pixel" src="images/cover.png" alt="" /></a>
+			<h1 class="blogtitle_pixel">
+				<a title="" href='http://my-ghost-blog.com'>
+				</a>
+			</h1>
+			<p class="blogdescription_pixel">
+				<a title="" href='http://my-ghost-blog.com'>
+				</a>
+			</p>
+		</div>
+		<main class="main_pixel headline" role="main">
+		</main>
+	</div>
+
+	<script id="PostTemplate" type="text/template">
+		<article class="article_pixel" role="article" itemscope itemtype="http://schema.org/Article">
+			<div class="post_container">
+				<header class="postheader_pixel">
+					<time class="date_pixel" datetime="{{ datePublished }}" itemprop="datePublished">
+						<span class="icon-clock"></span>{{ TimeSpan updated_at }}<span>in</span> 
+						<a href="#">{{ labels.0.name }}</a> 
+					</time>
+					<h1 class="posttitle_pixel" itemprop="headline">
+						<a href="#" rel="bookmark">
+							{{ title }}
+						</a>
+					</h1>
+				</header>
+				<div class="postcontent_pixel" itemprop="articleBody">
+					<p></p>
+					{{ Intro body }}...
+				</div>
+			</div>
+		</article>
+	</script>
+
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
+	<script type="text/javascript" src="bower_components/backbone/backbone-min.js"></script>
+	<script type="text/javascript" src="bower_components/handlebars/handlebars.min.js"></script>
+	<script type="text/javascript" src="app/app.js"></script>
+
+</body>
+</html>

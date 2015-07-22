@@ -1,0 +1,10 @@
+{
+  "name": "gh-blog",
+  "version": "0.0.1",
+  "description": "Minimalistic blog over GitHub's Issue Management System",
+  "author": "ibrahim-islam",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
