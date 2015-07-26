@@ -16,6 +16,7 @@
     "handlebars": "~3.0.3",
     "normalize.css": "~3.0.3",
     "jquery": "~2.1.4",
-    "backbone": "~1.2.1"
+    "backbone": "~1.2.1",
+    "FitText.js": "~1.2.0"
   }
 }

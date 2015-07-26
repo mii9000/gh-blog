@@ -13,6 +13,21 @@
 <body class="home-template">
 
 	<div class="wrapper_pixel">
+	</div>
+
+
+	<script id="Footer" type="text/template">
+		<footer class="footer_pixel" style="position: relative;">
+			<p class="subscribe_pixel">
+				<a class="icon-rss" target="_blank" href="#"></a>
+			</p>
+			<div class="footertext_pixel">
+				<p>Theme: <a class="icon-github-circled" href="https://github.com/Skepton/Pixelpusher"></a></p>
+			</div>
+		</footer>
+	</script>
+
+	<script id="PostListTemplate" type="text/template">
 		<div role='banner' class="header_pixel">
 			<div class="menu_list">
 				<a class="menu_item" href="http://bd.linkedin.com/in/mdibrahimislam/">LinkedIn</a>
@@ -31,37 +46,153 @@
 				</a>
 			</p>
 		</div>
-		<main class="main_pixel headline" role="main">
-		</main>
-	</div>
+	</script>
 
-	<script id="PostTemplate" type="text/template">
-		<article class="article_pixel" role="article" itemscope itemtype="http://schema.org/Article">
-			<div class="post_container">
-				<header class="postheader_pixel">
-					<time class="date_pixel" datetime="{{ datePublished }}" itemprop="datePublished">
-						<span class="icon-clock"></span>{{ TimeSpan updated_at }}<span>in</span> 
-						<a href="#">{{ labels.0.name }}</a> 
-					</time>
-					<h1 class="posttitle_pixel" itemprop="headline">
-						<a href="#" rel="bookmark">
-							{{ title }}
-						</a>
-					</h1>
-				</header>
-				<div class="postcontent_pixel" itemprop="articleBody">
-					<p></p>
-					{{ Intro body }}...
-				</div>
+	<script id="PostItemTemplate" type="text/template">
+		<div class="post_container">
+			<header class="postheader_pixel">
+				<time class="date_pixel" datetime="{{ datePublished }}" itemprop="datePublished">
+					<span class="icon-clock"></span>{{ TimeSpan updated_at }}<span>in</span> 
+					<a href="#">{{ labels.0.name }}</a> 
+				</time>
+				<h1 class="posttitle_pixel" itemprop="headline">
+					<a href="#/posts/{{ number }}" rel="bookmark">
+						{{ title }}
+					</a>
+				</h1>
+			</header>
+			<div class="postcontent_pixel" itemprop="articleBody">
+				<p></p>
+				{{ Intro body }}...
 			</div>
-		</article>
+		</div>
+	</script>
+
+	<script id="PostDetailBody" type="text/template">
+		<div role="banner" class="header_pixel">
+			<div class="menu_list">
+				<a class="menu_item" href="http://bd.linkedin.com/in/mdibrahimislam/">LinkedIn</a>
+				<a class="menu_item" href="http://stackoverflow.com/users/1565402/md-lbrahim">StackOverflow</a>
+				<a class="menu_item" href="http://forums.asp.net/members/IbrahimIslam.aspx">ASP.NET</a>
+				<a class="menu_item" href="https://github.com/Ibrahim-Islam">GitHub</a>
+				<a class="menu_item" href="mailto:ibrahim.islam@live.com">Email</a>
+			</div>
+			<a class="" href="#/"><img class="cover_pixel" src="images/cover.png" alt="" style="margin-top: -25px;"></a>
+			<h1 class="blogtitle_pixel"></h1>
+		</div>
+		<main class="main_pixel post" role="main">				
+			<div id="trampezium"></div>
+		</main>
+	</script>
+
+	<script id="PostDetailTemplate" type="text/template">
+		<header class="postheader_pixel">
+			<time class="date_pixel" datetime="{{ PostDetailDate updated_at }}" itemprop="datePublished">
+				<span class="icon-clock"></span>{{ PostDetailDate updated_at }}
+			</time>
+			<h1 class="posttitle_pixel" itemprop="headline">
+				{{ title }}
+			</h1>					
+		</header>
+		<div class="postcontent_pixel" itemprop="articleBody">
+			{{ body }}
+		</div>
+		{{#if labels}}
+			<div class="posttags_pixel">
+				<p><span class="icon-tag"></span>{{{ LabelSplitter labels }}}</p>
+			</div>
+		{{/if}}		
 	</script>
 
 	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/FitText.js/jquery.fittext.js"></script>
 	<script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
 	<script type="text/javascript" src="bower_components/backbone/backbone-min.js"></script>
 	<script type="text/javascript" src="bower_components/handlebars/handlebars.min.js"></script>
+	<script type="text/javascript" src="app/helpers.js"></script>
+	<script type="text/javascript" src="app/models.js"></script>
+	<script type="text/javascript" src="app/views.js"></script>
 	<script type="text/javascript" src="app/app.js"></script>
+
+	<script type="text/javascript">
+
+		function UnloadWindowResize(){
+			$(window).unbind('resize');
+		}
+
+		function JsForPostDetial(){
+			
+			$(window).load(function(){
+				if($('.postcontent_pixel p').eq(0).find('img').length){
+					$('.postcontent_pixel p').eq(0).find('img').hide();
+				}
+			});
+
+			$(document).ready(function(){
+				
+				if($('.postcontent_pixel p').eq(0).find('img').length){
+					var source = $('.postcontent_pixel p').eq(0).find('img').attr('src');
+					if($('.cover_pixel').length <= 0){
+						$('.header_pixel').append('<img class="cover_pixel" src="#/'+source+'" alt="header">');
+					}else{
+						$('.cover_pixel').attr('src', source);
+					}
+					$('.postcontent_pixel p').eq(0).remove();
+				}
+
+				$('.blogdescription_pixel').remove();
+
+				$('.blogtitle_pixel a').remove();
+
+				$(".article_pixel img").load(function() {
+					$(window).trigger('resize');				  
+				}).each(function() {
+				  if(this.complete) $(this).load();
+				});
+
+				$(window).trigger('resize');
+
+			});
+
+			$(window).resize(function(){
+				if($('.wrapper_pixel').height()<$(window).height()-$('.footer_pixel').height()){
+					$('.footer_pixel').css('position','absolute');
+				}else{$('.footer_pixel').css('position','relative');}
+				$('.cover_pixel').on('load',function(){
+					var header_height = $(this).height();
+					var parent_height = $('.header_pixel').outerHeight();
+					var height_complete = '-'+(header_height-parent_height)/2+'px';
+					if((header_height-parent_height)/2 <= 0){height_complete = '0px';}
+					$(this).css('margin-top',height_complete);
+				}).each(function() {
+					if(this.complete) $(this).load();
+				});
+				$('.postfooter_pixel address').css('height',$('.authorbio_pixel').outerHeight());
+				$('.sharepost_pixel').css('height',$('.authorbio_pixel').outerHeight());
+				jQuery(".postheader_pixel h1").fitText(1.1, { minFontSize: '40px', maxFontSize: '90px' });
+			});
+
+			$(window).scroll(function(){
+				if($(this).scrollTop() > 50 && $(window).width() > 500 && $(window).height() > 500){		
+					jQuery(".blogtitle_pixel a").fitText(1.5, { minFontSize: '20px', maxFontSize: '32px' });
+					$('.article_pixel').css('margin-top',$('.header_pixel').height()+230);
+					$('.header_pixel').addClass('small');
+					$('.article_pixel').css('margin-top',$('.header_pixel').height()+230);
+				}else if($(this).scrollTop() <= 50){
+					jQuery(".blogtitle_pixel a").fitText(1.2, { minFontSize: '20px', maxFontSize: '75px' });
+					$('.article_pixel').css('margin-top',0);
+					$('.header_pixel').removeClass('small');
+				}
+			});
+
+			$(document).ready(function(){
+				$(window).trigger('resize');
+				$(document).trigger('scroll');
+				jQuery(".blogtitle_pixel a").fitText(1.2, { minFontSize: '20px', maxFontSize: '75px' });
+			});
+
+		}
+	</script>
 
 </body>
 </html>
