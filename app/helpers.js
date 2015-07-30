@@ -11,24 +11,24 @@ Handlebars.registerHelper('TimeSpan', function(date) {
     var temp = Math.floor(milliseconds / 1000);
     var years = Math.floor(temp / 31536000);
     if (years) {
-        return years + ' year' + numberEnding(years);
+        return years + ' year ago ' + numberEnding(years);
     }
     //TODO: Months! Maybe weeks? 
     var days = Math.floor((temp %= 31536000) / 86400);
     if (days) {
-        return days + ' day' + numberEnding(days);
+        return days + ' day ago ' + numberEnding(days);
     }
     var hours = Math.floor((temp %= 86400) / 3600);
     if (hours) {
-        return hours + ' hour' + numberEnding(hours);
+        return hours + ' hour ago ' + numberEnding(hours);
     }
     var minutes = Math.floor((temp %= 3600) / 60);
     if (minutes) {
-        return minutes + ' minute' + numberEnding(minutes);
+        return minutes + ' minute ago ' + numberEnding(minutes);
     }
     var seconds = temp % 60;
     if (seconds) {
-        return seconds + ' second' + numberEnding(seconds);
+        return seconds + ' second ago ' + numberEnding(seconds);
     }
     return 'less than a second ago '; //'just now' //or other string you like;
 });
