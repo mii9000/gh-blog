@@ -57,11 +57,3 @@ Handlebars.registerHelper('LabelSplitter', function(labels){
     });
     return links;
 });
-
-Handlebars.registerHelper('Markdown', function(mk){
-    var marked = markdown.toHTML(mk);    
-    var code = $(marked).find('code').html();
-    var result = $(marked).find('code').addClass('language-'+ code.split('\n')[0] +'').wrapAll('<pre></pre>');
-    console.log( result.parent().parent().html() );
-    return '';
-});
