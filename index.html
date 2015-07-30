@@ -120,10 +120,13 @@
 
 		function UnloadWindowResize(){
 			$(window).unbind('resize');
+			$(window).unbind('scroll');
 		}
 
 		function JsForPostDetial(){
 			
+			$(document).scrollTop(0);
+
 			$(window).load(function(){
 				if($('.postcontent_pixel p').eq(0).find('img').length){
 					$('.postcontent_pixel p').eq(0).find('img').hide();
