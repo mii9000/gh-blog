@@ -5,5 +5,7 @@
   "author": "ibrahim-islam",
   "license": "MIT",
   "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-webserver": "^0.9.1"
   }
 }
