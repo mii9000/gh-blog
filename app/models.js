@@ -1,5 +1,16 @@
+var Config = Backbone.Model.extend({
+    defaults: {
+        username: "",
+        repo: ""
+    },
+    url: 'config.json'
+});
+
 var Issue = Backbone.Model.extend({
-	urlRoot: 'https://api.github.com/repos/ibrahim-islam/ibrahim-islam.github.io/issues',
+	initialize: function(options){
+        var config = options.config.toJSON();
+        this.urlRoot = 'https://api.github.com/repos/'+ config.username +'/'+ config.repo +'/issues';
+    },
     sync: function (method, model, options) {
         if (method !== 'read') return Backbone.sync.apply(this, arguments);
 
@@ -34,8 +45,10 @@ var Issue = Backbone.Model.extend({
 });
 
 var Issues = Backbone.Collection.extend({
-	model: Issue,
-	url: 'https://api.github.com/repos/ibrahim-islam/ibrahim-islam.github.io/issues'
+    initialize: function(options){
+        var config = options.config.toJSON();
+        this.url = 'https://api.github.com/repos/'+ config.username +'/'+ config.repo +'/issues'
+    }
 });
 
 var Markdown = Backbone.Model.extend({

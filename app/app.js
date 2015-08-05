@@ -1,6 +1,7 @@
 var Router = Backbone.Router.extend({
 	initialize: function(options){
 		this.issues = options.issues;
+		this.config = options.config;
 	},
 	routes: {
 		'' : 'allIssues',
@@ -15,7 +16,7 @@ var Router = Backbone.Router.extend({
 		$(".wrapper_pixel").append( $("#Footer").html() );
 	},
 	postSingle: function(id){
-		var issue = new Issue({id : id});
+		var issue = new Issue({id : id, config: this.config});
 		issue.fetch().then(function(){
 			$(".wrapper_pixel").empty();
 			$(".wrapper_pixel").html( $("#PostDetailBody").html() );
@@ -27,10 +28,14 @@ var Router = Backbone.Router.extend({
 });
 
 
-var issues = new Issues();
-issues.fetch().then(function(){
-	var r = new Router({
-		issues: issues
+var config = new Config();
+config.fetch().then(function(){
+	var issues = new Issues({ config: config });
+	issues.fetch().then(function(){
+		var r = new Router({
+			issues: issues,
+			config: config
+		});
+		Backbone.history.start({ pushState: false });
 	});
-	Backbone.history.start({ pushState: false });
 });
