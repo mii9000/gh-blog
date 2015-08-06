@@ -12,8 +12,14 @@ If you'd like to use it you can simply:
 
 2. `bower intall`
 
-3. Make necessary changes to `config.json`
+3. Make necessary changes to `config.json` or change images
 
-3. Push it to a repo of your choice
+4. Copy contents and push it to repo of your choice
 
 The style for the blog belongs to https://github.com/Skepton/Pixelpusher
+
+# Dev
+
+1. `npm install`
+
+2. `gulp`
