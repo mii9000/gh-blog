@@ -35,7 +35,8 @@ Handlebars.registerHelper('TimeSpan', function(date) {
 
 
 Handlebars.registerHelper('Intro', function(body){
-	return body.substring(0, 150)
+    var trim = unmark(body);
+	return trim.substring(0, 150)
 });
 
 
