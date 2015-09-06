@@ -1,7 +1,8 @@
 var Config = Backbone.Model.extend({
     defaults: {
-        username: "",
-        repo: ""
+        username: "ibraihim-islam",
+        repo: "ibrahim-islam.github.io",
+        post_per_page: 5
     },
     url: 'config.json'
 });
@@ -47,7 +48,7 @@ var Issue = Backbone.Model.extend({
 var Issues = Backbone.Collection.extend({
     initialize: function(options){
         var config = options.config.toJSON();
-        this.url = 'https://api.github.com/repos/'+ config.username +'/'+ config.repo +'/issues'
+        this.url = 'https://api.github.com/repos/'+ config.username +'/'+ config.repo +'/issues?per_page=' + config.post_per_page
     }
 });
 
