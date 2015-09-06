@@ -48,7 +48,7 @@ var Issue = Backbone.Model.extend({
 var Issues = Backbone.Collection.extend({
     initialize: function(options){
         var config = options.config.toJSON();
-        this.url = 'https://api.github.com/repos/'+ config.username +'/'+ config.repo +'/issues?per_page=' + config.post_per_page
+        this.url = 'https://api.github.com/repos/'+ config.username +'/'+ config.repo +'/issues?per_page=' + config.post_per_page;
     }
 });
 
