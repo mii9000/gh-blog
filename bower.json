@@ -17,6 +17,7 @@
     "normalize.css": "~3.0.3",
     "jquery": "~2.1.4",
     "backbone": "~1.2.1",
-    "FitText.js": "~1.2.0"
+    "FitText.js": "~1.2.0",
+    "unmark": "~0.1.1"
   }
 }
