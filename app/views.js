@@ -29,3 +29,43 @@ var PostDetailView = Backbone.View.extend({
 		return this;
 	}
 });
+
+var LoadMoreView = Backbone.View.extend({
+	tagName: 'div',
+	className: 'pagination_pixel',
+	template: Handlebars.compile($('#PaginationTemplate').html()),
+	render: function(){
+		this.$el.append( this.template(this.model.toJSON()) );
+		return this;
+	},
+	events: {
+		'click  .pagination' : 'loadMore'
+	},
+	loadMore: function(event){
+		event.preventDefault();
+        var href = $('.older-posts').attr('href');
+        var pageNumber = href.split('/')[2];
+        var config = new Config();
+		config.fetch().then(function(){
+			var moreIssues = new Issues({ config: config, page: pageNumber });
+			moreIssues.fetch({
+				success: function(collection, response, options){
+					$('.pagination').remove();
+
+					moreIssues.forEach(function(model){
+						$(".pagination_pixel").before( (new PostItemView( { model : model } )).render().el );
+					});
+					
+					var linkHeader = options.xhr.getResponseHeader('Link');
+	        		var links = _.isNull(linkHeader) === true ? parse_link_header("") : parse_link_header(linkHeader);
+
+					if(_.isEmpty(this.links) === false){
+						var pageNumber = this.links.next.split('=')[2];
+						var loadmore = new LoadMore({ pageNumber: pageNumber });
+						$(".main_pixel").append( (new LoadMoreView({ model: loadmore })).render().el );
+					}
+				}
+			});
+		});
+	}
+});
