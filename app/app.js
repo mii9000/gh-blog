@@ -2,6 +2,7 @@ var Router = Backbone.Router.extend({
 	initialize: function(options){
 		this.issues = options.issues;
 		this.config = options.config;
+		this.links = options.links;
 	},
 	routes: {
 		'' : 'allIssues',
@@ -13,6 +14,13 @@ var Router = Backbone.Router.extend({
 		$(".wrapper_pixel").empty();
 		$(".wrapper_pixel").html( $("#PostListTemplate").html() );
 		$(".wrapper_pixel").append( (new PostListView({collection : this.issues})).render().el );
+		
+		if(_.isEmpty(this.links) === false){
+			var pageNumber = this.links.next.split('=')[2];
+			var loadmore = new LoadMore({ pageNumber: pageNumber });
+			$(".main_pixel").append( (new LoadMoreView({ model: loadmore })).render().el );
+		}
+
 		$(".wrapper_pixel").append( $("#Footer").html() );
 	},
 	postSingle: function(id){
