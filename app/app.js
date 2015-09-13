@@ -30,12 +30,33 @@ var Router = Backbone.Router.extend({
 
 var config = new Config();
 config.fetch().then(function(){
-	var issues = new Issues({ config: config });
-	issues.fetch().then(function(){
-		var r = new Router({
-			issues: issues,
-			config: config
-		});
-		Backbone.history.start({ pushState: false });
+	var issues = new Issues({ config: config, page: 1 });
+	issues.fetch({
+	    success: function (collection, response, options) {
+	    	var linkHeader = options.xhr.getResponseHeader('Link');
+	        var links = _.isNull(linkHeader) === true ? parse_link_header("") : parse_link_header(linkHeader);
+    		var r = new Router({
+				issues: issues,
+				config: config,
+				links: links
+			});
+			Backbone.history.start({ pushState: false });
+	    }
 	});
 });
+
+function parse_link_header(header) {
+	var parts = header.split(',');
+	var links = {};
+	_.each(parts, function(p) {
+		var section = p.split(';');
+		if (section.length !== 2) {
+		  return links;
+		}
+		var url = section[0].replace(/<(.*)>/, '$1').trim();
+		var name = section[1].replace(/rel="(.*)"/, '$1').trim();
+		links[name] = url;
+	});
+
+	return links;
+}
